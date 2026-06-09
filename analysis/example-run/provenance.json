@@ -1,0 +1,36 @@
+{
+  "purpose": "SUEWS Community Hackathon practice smoke test",
+  "created_at": "2026-06-09T15:06:40Z",
+  "tooling": {
+    "suews_cli": "2026.6.5",
+    "supy": "2026.6.5",
+    "suews_mcp": "0+unknown",
+    "suews_git_commit_reported_by_cli": "9dae7a8"
+  },
+  "commands": [
+    "suews init --template simple-urban --format json analysis/example-run",
+    "suews validate --format json analysis/example-run/sample_config.yml",
+    "suews inspect analysis/example-run/sample_config.yml --format json",
+    "suews run analysis/example-run/updated_sample_config.yml",
+    "suews diagnose analysis/example-run --format json",
+    "suews summarise analysis/example-run"
+  ],
+  "inputs": [
+    "analysis/example-run/sample_config.yml",
+    "analysis/example-run/updated_sample_config.yml",
+    "analysis/example-run/Kc_2012_data_60.txt"
+  ],
+  "outputs": [
+    "analysis/example-run/Output/KCL1_2012_SUEWS_60.txt",
+    "analysis/example-run/Output/KCL_SUEWS_checkpoint.json"
+  ],
+  "diagnostic_summary": {
+    "passes": 2,
+    "warnings": 2,
+    "failures": 0,
+    "warnings_noted": [
+      "The original diagnose call warned that provenance.json was missing; this sidecar records the smoke-test commands after the run.",
+      "The bundled demo case reported an energy-balance closure warning, so this run is a tool smoke test rather than a scientifically calibrated study."
+    ]
+  }
+}
