@@ -86,6 +86,23 @@ configuration and forcing data, so it confirms that the local SUEWS workflow can
 run end to end but does not represent the hackathon focus city or a
 site-specific heat-risk result.
 
+## Citing SUEWS
+
+This practice run used SUEWS/SuPy version `2026.6.5`. The final hackathon
+submission should cite the exact software version used, following the current
+[SUEWS citation guidance](https://docs.suews.io/stable/#how-to-cite-suews).
+
+Core model references:
+
+- Jarvi, L., Grimmond, C.S.B. and Christen, A. (2011). The Surface Urban Energy
+  and Water Balance Scheme (SUEWS): Evaluation in Los Angeles and Vancouver.
+  *Journal of Hydrology*, 411(3-4), 219-237.
+  [https://doi.org/10.1016/j.jhydrol.2011.10.001](https://doi.org/10.1016/j.jhydrol.2011.10.001)
+- Ward, H.C., Kotthaus, S., Jarvi, L. and Grimmond, C.S.B. (2016). Surface
+  Urban Energy and Water Balance Scheme (SUEWS): Development and evaluation at
+  two UK sites. *Urban Climate*, 18, 1-32.
+  [https://doi.org/10.1016/j.uclim.2016.05.001](https://doi.org/10.1016/j.uclim.2016.05.001)
+
 ## Next hackathon step
 
 On the day, replace the sample configuration and forcing with the released focus
