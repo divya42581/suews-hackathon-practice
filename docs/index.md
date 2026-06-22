@@ -67,21 +67,58 @@ heat `QH`, and latent heat `QE`.
 
 ## Results and Discussion
 
-The heat-hazard period reached a maximum modelled `T2` of `30.4 C`. During this
-period, `T2 >= 28 C` occurred for `14` hours, while apparent temperature
-exceeded `28 C` for `25` hours. This shows that humidity made the heat stress
-feel stronger than the air temperature alone.
+### Objective 1: Confirm the SUEWS practice run
 
-![Heat hazard threshold and degree-hours](assets/heat_hazard_timeseries.png)
+The practice workflow successfully produced an hourly SUEWS output file for the
+bundled KCL/London sample case. The diagnostic summary found `3` passing checks,
+`1` warning, and `0` failures. `QH`, `QE`, and `QN` all had `0%` missing values,
+so the output was suitable for this interpretation exercise.
 
-The hazard period had substantially higher daytime available energy than the
-pre- and post-hazard comparison periods. Daytime `QN + QF` increased from about
-`249 W m-2` before the event to `329 W m-2` during it.
+The remaining warning was an energy-balance closure diagnostic, so the results
+should be treated as a practice analysis rather than a publication-ready model
+assessment.
 
-The largest partitioning change was in storage heat. Daytime `QS` increased
-from about `59 W m-2` before the event to `111 W m-2` during the event. Sensible
-heat `QH` also increased, from `144 W m-2` to `165 W m-2`, while latent heat
-`QE` increased more modestly, from `45 W m-2` to `54 W m-2`.
+### Objective 2: Calculate a heat-hazard metric
+
+The heat-hazard metric was based on hourly exceedance above `28 C`. Across the
+selected event, `T2 >= 28 C` occurred for `14` hours and accumulated `18.5
+C-hours` above the threshold.
+
+Apparent temperature showed a stronger hazard signal. It exceeded `28 C` for
+`25` hours and accumulated `53.1 C-hours` above the same threshold. This means
+humidity and low wind made the event feel more severe than air temperature alone
+suggests.
+
+<p align="center">
+  <img src="assets/heat_hazard_timeseries.png" alt="Heat hazard threshold and degree-hours" width="100%">
+</p>
+
+### Objective 3: Identify the main heat-hazard period
+
+The selected heat-hazard period was `2012-08-17` to `2012-08-19`, the longest
+run of days in the sample year with daily maximum `T2 >= 28 C`. The peak
+modelled `T2` during this period was `30.4 C`, and the peak apparent temperature
+was `32.4 C`.
+
+The comparison windows were chosen to be the same length as the hazard period:
+
+- Pre-hazard: `2012-08-14` to `2012-08-16`
+- Hazard: `2012-08-17` to `2012-08-19`
+- Post-hazard: `2012-08-20` to `2012-08-22`
+
+This keeps the before/during/after comparison balanced: each period contains
+`72` hourly records and about `41-42` daytime hours, using `Kdown > 20 W m-2`.
+
+### Objective 4: Compare flux partitioning before, during, and after heat hazard
+
+The heat-hazard period had substantially higher daytime available energy.
+Daytime `QN + QF` increased from `248.5 W m-2` before the event to `329.3 W
+m-2` during it, then dropped back to `251.3 W m-2` after it.
+
+The strongest partitioning change was storage heat. Daytime `QS` increased from
+`59.2 W m-2` before the event to `110.6 W m-2` during the event. Sensible heat
+`QH` increased from `144.1 W m-2` to `164.5 W m-2`, while latent heat `QE`
+increased only modestly from `45.2 W m-2` to `54.1 W m-2`.
 
 | Period | Daytime QH | Daytime QE | Daytime QS | Daytime QN + QF |
 | --- | ---: | ---: | ---: | ---: |
@@ -89,15 +126,26 @@ heat `QH` also increased, from `144 W m-2` to `165 W m-2`, while latent heat
 | Hazard | 164.5 | 54.1 | 110.6 | 329.3 |
 | Post-hazard | 154.7 | 36.6 | 59.9 | 251.3 |
 
-![Heat hazard period with energy and water fluxes](assets/hazard_period_flux_timeseries.png)
+As daytime fractions of `QH + QE + QS`, the hazard period partitioned about
+`50.0%` to sensible heat, `16.4%` to latent heat, and `33.6%` to storage heat.
+The storage fraction was higher than both the pre-hazard (`23.8%`) and
+post-hazard (`23.8%`) periods.
 
-![Daytime flux partitioning before, during, and after the hazard period](assets/pre_during_post_flux_partition.png)
+<p align="center">
+  <img src="assets/hazard_period_flux_timeseries.png" alt="Heat hazard period with energy and water fluxes" width="100%">
+</p>
+
+<p align="center">
+  <img src="assets/pre_during_post_flux_partition.png" alt="Daytime flux partitioning before, during, and after the hazard period" width="80%">
+</p>
 
 The key interpretation is that the heat-hazard period was not only hotter in
 the air. The urban surface also stored much more heat. This matters because
 stored heat can be released later, helping to sustain warm evening and night
 conditions. In this sample case, the extra available energy was partitioned
 mainly into storage and sensible heating rather than evaporation.
+
+### Objective 5: Clarify the hazard-to-risk boundary
 
 The simulation provides a heat-hazard layer, but it does not provide a complete
 heat-risk assessment. Risk also needs exposure, vulnerability, and adaptive
