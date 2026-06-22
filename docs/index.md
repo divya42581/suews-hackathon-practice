@@ -1,93 +1,90 @@
 # Heat Hazard and Urban Flux Partitioning: SUEWS Practice Analysis
 
-## Introduction
+## Main Message: Heat Hazard Was Driven by Stored Urban Heat
 
-This page documents a practice workflow for the SUEWS Community Hackathon. The
-exercise uses the bundled KCL/London `simple-urban` sample case to check that
-SUEWS can be run end to end, then explores how a short heat-hazard period is
-reflected in the modelled surface energy and water fluxes.
+This practice analysis used the bundled KCL/London SUEWS sample case to test the
+hackathon workflow. The main finding is that the selected heat-hazard period was
+not only warmer in the air; the urban surface stored much more heat, which can
+help sustain heat after the daytime peak.
 
-This is not the final hackathon-city analysis. It is a worked example showing
-how the repository, model run, public documentation, and AI transcript evidence
-can be organised before the real focus-city dataset is released.
+This is a practice run, not the final hackathon-city analysis. It shows how a
+SUEWS result can be turned into a public story with transparent caveats.
 
-## Objectives
+## Aim: Turn a Model Run into a Heat-Hazard Story
 
-The objectives of this exercise were to:
+### What we wanted to check
 
-- Create a public practice repository from the hackathon template.
-- Run one small SUEWS simulation to confirm the toolchain works.
-- Calculate a simple heat-hazard metric from the hourly model output.
-- Identify the main heat-hazard period in the sample year.
-- Compare energy and water fluxes before, during, and after the hazard period.
-- Clarify what the simulation can say about hazard, and what extra information
-  is needed to estimate heat risk.
+- Can the SUEWS toolchain run end to end?
+- Can hourly SUEWS output be used to define a simple heat hazard?
+- During the hazard period, where did the available energy go?
+- What extra information is needed to move from heat hazard to heat risk?
 
-## Methods
+## Method: Use a Simple Threshold and Compare Before, During, and After
 
-The practice repository was created from `UMEP-dev/suews-hackathon-template`.
-SUEWS/SuPy version `2026.6.5` was installed in a local Python environment, and
-the bundled `simple-urban` sample configuration was initialised, validated, run,
-diagnosed, and summarised.
+### Simulation setup
 
-The simulation used the packaged KCL/London sample configuration and hourly
-meteorological forcing for 2012. The output file used for analysis was:
+The run used SUEWS/SuPy version `2026.6.5` with the packaged KCL/London
+`simple-urban` sample case and 2012 hourly forcing. The analysed output was:
 
 ```text
 analysis/demo-simple-urban/Output/KCL1_2012_SUEWS_60.txt
 ```
 
-Heat hazard was calculated from hourly 2 m air temperature, `T2`, using a
-transparent exceedance metric:
+### Hazard definition
+
+Heat hazard was calculated as hourly exceedance above `28 C`:
 
 ```text
 degree-hours = sum(max(T2 - 28 C, 0))
 ```
 
-Apparent temperature was also calculated to include humidity and wind effects:
+Apparent temperature was also calculated to include humidity and wind:
 
 ```text
 apparent_temperature = T2 + 0.33e - 0.70U10 - 4
 ```
 
-where `e` is vapour pressure estimated from `T2` and `RH2`, and `U10` is 10 m
-wind speed.
+### Comparison windows
 
-The heat-hazard period was selected as the longest run of days in the sample
-with daily maximum `T2 >= 28 C`. This selected:
+The heat-hazard period was the longest run of days with daily maximum
+`T2 >= 28 C`.
 
-- Pre-hazard comparison period: 2012-08-14 to 2012-08-16
-- Heat-hazard period: 2012-08-17 to 2012-08-19
-- Post-hazard comparison period: 2012-08-20 to 2012-08-22
+- Pre-hazard: `2012-08-14` to `2012-08-16`
+- Hazard: `2012-08-17` to `2012-08-19`
+- Post-hazard: `2012-08-20` to `2012-08-22`
 
-Flux partitioning was assessed using daytime mean fluxes, where daytime was
-defined as `Kdown > 20 W m-2`. The main energy-balance terms compared were net
-all-wave radiation `QN`, anthropogenic heat `QF`, storage heat `QS`, sensible
-heat `QH`, and latent heat `QE`.
+Daytime fluxes were averaged when `Kdown > 20 W m-2`.
 
-## Results and Discussion
+## Result 1: The Workflow Ran, but This Is Still a Practice Case
 
-### Objective 1: Confirm the SUEWS practice run
+### Toolchain check
 
-The practice workflow successfully produced an hourly SUEWS output file for the
-bundled KCL/London sample case. The diagnostic summary found `3` passing checks,
-`1` warning, and `0` failures. `QH`, `QE`, and `QN` all had `0%` missing values,
-so the output was suitable for this interpretation exercise.
+The SUEWS run produced hourly output with `0%` missing values in `QN`, `QH`, and
+`QE`. Diagnostics reported `3` passes, `1` warning, and `0` failures.
 
-The remaining warning was an energy-balance closure diagnostic, so the results
-should be treated as a practice analysis rather than a publication-ready model
-assessment.
+### Interpretation boundary
 
-### Objective 2: Calculate a heat-hazard metric
+The remaining warning was an energy-balance closure warning. That means the run
+is useful for learning the workflow, but it should not be treated as a
+publication-ready climate result.
 
-The heat-hazard metric was based on hourly exceedance above `28 C`. Across the
-selected event, `T2 >= 28 C` occurred for `14` hours and accumulated `18.5
-C-hours` above the threshold.
+## Result 2: Humidity Made the Heat Hazard Stronger
 
-Apparent temperature showed a stronger hazard signal. It exceeded `28 C` for
-`25` hours and accumulated `53.1 C-hours` above the same threshold. This means
-humidity and low wind made the event feel more severe than air temperature alone
-suggests.
+### Air temperature alone understated the event
+
+During the selected heat-hazard period:
+
+- Maximum `T2`: `30.4 C`
+- Hours with `T2 >= 28 C`: `14`
+- `T2` degree-hours above `28 C`: `18.5 C-hours`
+
+### Apparent temperature showed higher heat stress
+
+When humidity and wind were included:
+
+- Maximum apparent temperature: `32.4 C`
+- Hours with apparent temperature `>= 28 C`: `25`
+- Apparent-temperature degree-hours above `28 C`: `53.1 C-hours`
 
 <p align="center">
   <img src="assets/heat_hazard_timeseries.png" alt="Heat hazard threshold and degree-hours" width="82%">
@@ -95,43 +92,18 @@ suggests.
   <em>Figure 1. Heat-hazard identification using daily maximum T2, apparent temperature, and degree-hours above 28 C.</em>
 </p>
 
-### Objective 3: Identify the main heat-hazard period
+## Result 3: The Hazard Period Had Much More Available Energy
 
-The selected heat-hazard period was `2012-08-17` to `2012-08-19`, the longest
-run of days in the sample year with daily maximum `T2 >= 28 C`. The peak
-modelled `T2` during this period was `30.4 C`, and the peak apparent temperature
-was `32.4 C`.
+### Daytime energy input increased sharply
 
-The comparison windows were chosen to be the same length as the hazard period:
+Daytime `QN + QF` increased from `248.5 W m-2` before the hazard period to
+`329.3 W m-2` during the hazard period. After the event it returned to
+`251.3 W m-2`.
 
-- Pre-hazard: `2012-08-14` to `2012-08-16`
-- Hazard: `2012-08-17` to `2012-08-19`
-- Post-hazard: `2012-08-20` to `2012-08-22`
+### The comparison was balanced
 
-This keeps the before/during/after comparison balanced: each period contains
-`72` hourly records and about `41-42` daytime hours, using `Kdown > 20 W m-2`.
-
-### Objective 4: Compare flux partitioning before, during, and after heat hazard
-
-The heat-hazard period had substantially higher daytime available energy.
-Daytime `QN + QF` increased from `248.5 W m-2` before the event to `329.3 W
-m-2` during it, then dropped back to `251.3 W m-2` after it.
-
-The strongest partitioning change was storage heat. Daytime `QS` increased from
-`59.2 W m-2` before the event to `110.6 W m-2` during the event. Sensible heat
-`QH` increased from `144.1 W m-2` to `164.5 W m-2`, while latent heat `QE`
-increased only modestly from `45.2 W m-2` to `54.1 W m-2`.
-
-| Period | Daytime QH | Daytime QE | Daytime QS | Daytime QN + QF |
-| --- | ---: | ---: | ---: | ---: |
-| Pre-hazard | 144.1 | 45.2 | 59.2 | 248.5 |
-| Hazard | 164.5 | 54.1 | 110.6 | 329.3 |
-| Post-hazard | 154.7 | 36.6 | 59.9 | 251.3 |
-
-As daytime fractions of `QH + QE + QS`, the hazard period partitioned about
-`50.0%` to sensible heat, `16.4%` to latent heat, and `33.6%` to storage heat.
-The storage fraction was higher than both the pre-hazard (`23.8%`) and
-post-hazard (`23.8%`) periods.
+Each period contains `72` hourly records and about `41-42` daytime hours, so the
+before/during/after comparison is like-for-like.
 
 <p align="center">
   <img src="assets/hazard_period_flux_timeseries.png" alt="Heat hazard period with energy and water fluxes" width="82%">
@@ -139,46 +111,69 @@ post-hazard (`23.8%`) periods.
   <em>Figure 2. Hourly temperature, energy fluxes, and water fluxes for the pre-hazard, hazard, and post-hazard windows.</em>
 </p>
 
+## Result 4: Extra Energy Went Mainly into Storage and Sensible Heat
+
+### Storage heat was the biggest change
+
+Daytime storage heat `QS` nearly doubled, from `59.2 W m-2` before the event to
+`110.6 W m-2` during it. Sensible heat `QH` also rose, while latent heat `QE`
+rose only slightly.
+
+| Period | Daytime QH | Daytime QE | Daytime QS | Daytime QN + QF |
+| --- | ---: | ---: | ---: | ---: |
+| Pre-hazard | 144.1 | 45.2 | 59.2 | 248.5 |
+| Hazard | 164.5 | 54.1 | 110.6 | 329.3 |
+| Post-hazard | 154.7 | 36.6 | 59.9 | 251.3 |
+
+### The hazard-period partition was less evaporative
+
+During the hazard period, daytime `QH + QE + QS` was partitioned as:
+
+- `50.0%` sensible heat
+- `16.4%` latent heat
+- `33.6%` storage heat
+
+The storage fraction was higher than both the pre-hazard and post-hazard
+periods, which were each about `23.8%`.
+
 <p align="center">
   <img src="assets/pre_during_post_flux_partition.png" alt="Daytime flux partitioning before, during, and after the hazard period" width="62%">
   <br>
   <em>Figure 3. Daytime mean flux partitioning, showing the rise in storage heat during the hazard period.</em>
 </p>
 
-The key interpretation is that the heat-hazard period was not only hotter in
-the air. The urban surface also stored much more heat. This matters because
-stored heat can be released later, helping to sustain warm evening and night
-conditions. In this sample case, the extra available energy was partitioned
-mainly into storage and sensible heating rather than evaporation.
+## Discussion: Hazard Is Not the Same as Risk
 
-### Objective 5: Clarify the hazard-to-risk boundary
+### What SUEWS gives us
 
-The simulation provides a heat-hazard layer, but it does not provide a complete
-heat-risk assessment. Risk also needs exposure, vulnerability, and adaptive
-capacity information. A simple structure for later processing is:
+SUEWS provides the physical hazard layer: air temperature, apparent heat,
+radiation, sensible heat, latent heat, storage heat, rainfall, evaporation, and
+runoff.
+
+### What risk still needs
+
+A complete heat-risk indicator also needs exposure, vulnerability, and adaptive
+capacity. A simple structure for later processing is:
 
 ```text
 risk_index = hazard_index * exposure_index * vulnerability_index *
              (1 - adaptive_capacity_index)
 ```
 
-Useful non-SUEWS indicators for the final hackathon task include population
-exposed, age structure, deprivation or low-income share, outdoor-worker share,
-housing quality, baseline health vulnerability, access to cooling, and
-green/blue-space access.
+Useful non-SUEWS indicators include population exposed, age structure,
+deprivation or low-income share, outdoor-worker share, housing quality, baseline
+health vulnerability, access to cooling, and green/blue-space access.
 
-## Conclusion
+## Conclusion: The Workflow Is Ready for the Real Hackathon Dataset
 
-This practice run confirms that the SUEWS workflow can produce hourly urban
-climate outputs and that these outputs can be converted into a transparent heat
-hazard metric. The selected hazard period showed higher air temperature, higher
-apparent temperature, and a clear shift in flux partitioning, especially a large
-increase in storage heat.
+This practice run shows how to move from SUEWS output to a readable heat-hazard
+story. In this sample case, the heat-hazard period was marked by higher air
+temperature, stronger apparent heat, and a clear increase in storage heat.
 
 For the final hackathon submission, the same workflow should be repeated with
-the released focus-city dataset. The hazard result should then be combined with
-population and socio-economic indicators to produce a heat-risk indicator, with
-the assumptions and limitations stated clearly.
+the focus-city dataset. The hazard result should then be combined with
+socio-economic indicators to estimate heat risk, with assumptions stated
+clearly.
 
 ## Citation
 
