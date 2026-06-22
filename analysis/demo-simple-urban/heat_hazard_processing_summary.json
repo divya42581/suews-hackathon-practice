@@ -1,0 +1,59 @@
+{
+  "indicator_formulas": {
+    "heat_hazard": "hazard_index = mean(normalized intensity, duration, night-heat, humid-heat components)",
+    "degree_hours": "sum(max(T - threshold, 0)) over hourly model output",
+    "apparent_temperature_C": "T2 + 0.33*e - 0.70*U10 - 4, where e = RH2/100 * 6.105 * exp(17.27*T2/(237.7+T2))",
+    "risk": "risk_index = hazard_index * exposure_index * vulnerability_index * (1 - adaptive_capacity_index)",
+    "important_limitation": "This simulation supplies hazard. Exposure, vulnerability, and adaptive capacity must come from population/socio-economic data."
+  },
+  "hazard_metrics": {
+    "hours_T2_ge_26C": 91,
+    "degree_hours_T2_gt_26C": 139.4272,
+    "hours_apparent_ge_26C": 118,
+    "degree_hours_apparent_gt_26C": 217.54397242955918,
+    "hours_T2_ge_28C": 25,
+    "degree_hours_T2_gt_28C": 26.024699999999996,
+    "hours_apparent_ge_28C": 41,
+    "degree_hours_apparent_gt_28C": 76.33085171689129,
+    "hours_T2_ge_30C": 2,
+    "degree_hours_T2_gt_30C": 0.5475999999999992,
+    "hours_apparent_ge_30C": 18,
+    "degree_hours_apparent_gt_30C": 19.483368268431754,
+    "hours_T2_ge_32C": 0,
+    "degree_hours_T2_gt_32C": 0.0,
+    "hours_apparent_ge_32C": 1,
+    "degree_hours_apparent_gt_32C": 0.3793359586478644,
+    "hours_T2_ge_35C": 0,
+    "degree_hours_T2_gt_35C": 0.0,
+    "hours_apparent_ge_35C": 0,
+    "degree_hours_apparent_gt_35C": 0.0,
+    "max_T2_C": 30.4038,
+    "mean_T2_C": 11.91451872723133,
+    "min_T2_C": -5.2429,
+    "max_apparent_temp_C": 32.379335958647864,
+    "mean_apparent_temp_C": 10.955092678386265,
+    "max_heat_index_C_valid_warm_hours": 30.57223621927257,
+    "days_T2_max_ge_28C": 8,
+    "days_T2_max_ge_30C": 1,
+    "tropical_nights_T2_min_ge_20C": 2,
+    "heatwave_runs_T2max_ge_30C_3days": []
+  },
+  "flux_context": {
+    "annual_mean_QN_Wm2": 44.75999263433516,
+    "annual_mean_QF_Wm2": 84.52148773907105,
+    "annual_mean_QS_Wm2": 12.93696137295082,
+    "annual_mean_QH_Wm2": 88.75956756602915,
+    "annual_mean_QE_Wm2": 27.584951969489982,
+    "bowen_QH_over_QE": 3.217680700122322,
+    "rain_total_mm": 821.0,
+    "evap_total_mm": 352.177,
+    "runoff_total_mm": 573.9413999999999
+  },
+  "hazard_score_components": {
+    "intensity_T2max_26_to_35": 0.48931111111111114,
+    "duration_degree_hours_T2_gt_28_cap1000": 0.026024699999999994,
+    "night_heat_tropical_nights_cap30": 0.06666666666666667,
+    "humid_apparent_max_26_to_35": 0.7088151065164294
+  },
+  "demo_hazard_index_0_1": 0.3227043960735518
+}
