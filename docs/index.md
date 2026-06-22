@@ -90,7 +90,9 @@ humidity and low wind made the event feel more severe than air temperature alone
 suggests.
 
 <p align="center">
-  <img src="assets/heat_hazard_timeseries.png" alt="Heat hazard threshold and degree-hours" width="100%">
+  <img src="assets/heat_hazard_timeseries.png" alt="Heat hazard threshold and degree-hours" width="82%">
+  <br>
+  <em>Figure 1. Heat-hazard identification using daily maximum T2, apparent temperature, and degree-hours above 28 C.</em>
 </p>
 
 ### Objective 3: Identify the main heat-hazard period
@@ -132,11 +134,15 @@ The storage fraction was higher than both the pre-hazard (`23.8%`) and
 post-hazard (`23.8%`) periods.
 
 <p align="center">
-  <img src="assets/hazard_period_flux_timeseries.png" alt="Heat hazard period with energy and water fluxes" width="100%">
+  <img src="assets/hazard_period_flux_timeseries.png" alt="Heat hazard period with energy and water fluxes" width="82%">
+  <br>
+  <em>Figure 2. Hourly temperature, energy fluxes, and water fluxes for the pre-hazard, hazard, and post-hazard windows.</em>
 </p>
 
 <p align="center">
-  <img src="assets/pre_during_post_flux_partition.png" alt="Daytime flux partitioning before, during, and after the hazard period" width="80%">
+  <img src="assets/pre_during_post_flux_partition.png" alt="Daytime flux partitioning before, during, and after the hazard period" width="62%">
+  <br>
+  <em>Figure 3. Daytime mean flux partitioning, showing the rise in storage heat during the hazard period.</em>
 </p>
 
 The key interpretation is that the heat-hazard period was not only hotter in
