@@ -1,12 +1,34 @@
-# [Your project title]
+# SUEWS Hackathon Practice Setup
 
-Your public showcase page. Enable **GitHub Pages** (Settings → Pages → build from `main`, `/docs` folder) so this renders as a public site.
+This is a practice repository for the SUEWS Community Hackathon setup workflow.
 
-Tell the story:
+## Setup status
 
-- The question you asked.
-- How you configured SUEWS via the suews-agent.
-- Your heat-hazard result and the socio-economic risk indicator.
-- Where the hazard-to-indicator bridge holds, and where it breaks.
+- Repository created from `UMEP-dev/suews-hackathon-template`.
+- `TASK_BRIEF.md` reviewed.
+- SUEWS runtime installed in a local Python environment.
+- One bundled `simple-urban` demo case initialised, validated, run, diagnosed,
+  and summarised.
+- GitHub Pages configured to publish this `docs/` folder.
 
-> This page is judged on **Policy relevance & honest bridging** and **Presentation quality**. It must be public.
+## Smoke-test run
+
+The practice run is saved in `analysis/demo-simple-urban/`.
+
+- Output file: `analysis/demo-simple-urban/Output/KCL1_2012_SUEWS_60.txt`
+- Summary check: `QH`, `QE`, and `QN` all had 0% NaN values.
+- Diagnostics: 3 pass, 1 warning, 0 fail.
+
+## Interpretation boundary
+
+This is only a toolchain smoke test. It uses the packaged KCL/London sample
+configuration and forcing data, so it confirms that the local SUEWS workflow can
+run end to end but does not represent the hackathon focus city or a
+site-specific heat-risk result.
+
+## Next hackathon step
+
+On the day, replace the sample configuration and forcing with the released focus
+city dataset, run the selected scenarios through the suews-agent, apply the
+provided heat-to-risk bridge, and update this page with the final public
+submission narrative.

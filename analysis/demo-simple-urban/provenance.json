@@ -1,0 +1,19 @@
+{
+  "purpose": "SUEWS hackathon practice smoke test",
+  "created_at": "2026-06-22T18:26:45+01:00",
+  "runner": "suews CLI from local .venv",
+  "suews_version": "2026.6.5",
+  "supy_version": "2026.6.5",
+  "schema_version": "2026.5",
+  "suews_git_commit": "519fa27",
+  "template": "simple-urban",
+  "config": "analysis/demo-simple-urban/updated_sample_config.yml",
+  "forcing": "analysis/demo-simple-urban/Kc_2012_data_60.txt",
+  "run_command": ".venv/Scripts/suews.exe run analysis/demo-simple-urban/updated_sample_config.yml",
+  "output_dir": "analysis/demo-simple-urban/Output",
+  "notes": [
+    "Demo readiness only: this is the bundled KCL/London sample case, not a site-specific hackathon analysis.",
+    "Validation completed with non-blocking warnings.",
+    "Post-run diagnosis found output files and no NaNs in QH/QE/QN, but reported an energy-balance closure warning."
+  ]
+}

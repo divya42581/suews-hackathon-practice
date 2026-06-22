@@ -1,0 +1,57 @@
+{
+  "run_dir": "analysis\\demo-simple-urban\\Output",
+  "checks": [
+    {
+      "name": "provenance_present",
+      "severity": "warning",
+      "passed": false,
+      "message": "provenance.json missing; this run directory has no provenance sidecar.",
+      "details": {
+        "expected": "analysis\\demo-simple-urban\\Output\\provenance.json"
+      }
+    },
+    {
+      "name": "output_files_present",
+      "severity": "pass",
+      "passed": true,
+      "message": "Found 1 output file(s).",
+      "details": {
+        "files": [
+          "analysis\\demo-simple-urban\\Output\\KCL1_2012_SUEWS_60.txt"
+        ]
+      }
+    },
+    {
+      "name": "nan_proportion",
+      "severity": "pass",
+      "passed": true,
+      "message": "NaN fractions within 5% on QH/QE/QN.",
+      "details": {
+        "fractions": {
+          "QH": 0.0,
+          "QE": 0.0,
+          "QN": 0.0
+        }
+      }
+    },
+    {
+      "name": "energy_balance_closure",
+      "severity": "warning",
+      "passed": false,
+      "message": "Mean closure residual 5.731 exceeds 0.10.",
+      "details": {
+        "ratio_mean": 5.731098205778483,
+        "n_rows": 8741
+      }
+    }
+  ],
+  "summary": {
+    "n_pass": 2,
+    "n_warn": 2,
+    "n_fail": 0
+  },
+  "recommendations": [
+    "Preserve the run command, configuration path, and git commit in a provenance.json sidecar before archiving the run.",
+    "Review storage_heat / emissions physics options and check land-cover fractions sum to 1.0."
+  ]
+}
